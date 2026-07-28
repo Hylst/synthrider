@@ -849,7 +849,6 @@ export default function PisteSynthetique() {
 
           <div className="flex flex-col items-center gap-0.5">
             <PowerBar label={hud.sync >= 100 ? "SURCHARGE PRÊTE [ESPACE]" : "SYNCHRO"} value={hud.sync / 100} color={hud.sync >= 100 ? COLORS.yellow : COLORS.cyan} />
-            {hud.sync < 100 && hud.sync > 0 && <span className="text-[8px] tracking-wider text-white/30 -mt-0.5">gemmes &amp; esquives remplissent la jauge</span>}
             {hud.surge > 0 && <PowerBar label="SURCHARGE" value={hud.surge / SURGE_DUR} color={COLORS.yellow} />}
             {hud.boost > 0 && <PowerBar label="TURBO" value={hud.boost / BOOST_DUR} color={COLORS.boost} />}
             {hud.slow > 0 && <PowerBar label="RALENTI" value={hud.slow / SLOW_DUR} color={COLORS.slow} />}
