@@ -367,33 +367,81 @@ export default function PisteSynthetique() {
       ctx.save(); ctx.translate(x, y); ctx.rotate(bank);
       const glowC = boost > 0 ? COLORS.boost : COLORS.cyan;
       const flameLen = size * (0.7 + 0.4 * Math.sin(t * 30)) * (boost > 0 ? 1.6 : 1);
-      // Flammes d'échappement jumelles
-      for (const sx of [-size * 0.38, size * 0.38]) {
-        const fg = ctx.createLinearGradient(0, size * 0.4, 0, size * 0.4 + flameLen);
+      const w = size, hw = w * 0.5, h = w;
+      // Flammes jumelles
+      for (const sx of [-w * 0.38, w * 0.38]) {
+        const fg = ctx.createLinearGradient(0, h * 0.4, 0, h * 0.4 + flameLen);
         fg.addColorStop(0, hexA("#ffffff", 0.9));
         fg.addColorStop(0.3, hexA(glowC, 0.85));
         fg.addColorStop(1, hexA(glowC, 0));
         ctx.fillStyle = fg;
         ctx.beginPath();
-        ctx.moveTo(sx - size * 0.14, size * 0.4);
-        ctx.quadraticCurveTo(sx, size * 0.4 + flameLen * 1.1, sx + size * 0.14, size * 0.4);
+        ctx.moveTo(sx - w * 0.14, h * 0.4);
+        ctx.quadraticCurveTo(sx, h * 0.4 + flameLen * 1.1, sx + w * 0.14, h * 0.4);
         ctx.closePath(); ctx.fill();
       }
       // Lueur au sol
-      const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 2.5);
-      glow.addColorStop(0, hexA(glowC, 0.35)); glow.addColorStop(1, hexA(glowC, 0));
-      ctx.fillStyle = glow; ctx.beginPath(); ctx.ellipse(0, size * 0.3, size * 1.8, size * 0.6, 0, 0, Math.PI * 2); ctx.fill();
+      const gl = ctx.createRadialGradient(0, 0, 0, 0, 0, w * 2.5);
+      gl.addColorStop(0, hexA(glowC, 0.35)); gl.addColorStop(1, hexA(glowC, 0));
+      ctx.fillStyle = gl; ctx.beginPath(); ctx.ellipse(0, h * 0.3, w * 1.8, w * 0.6, 0, 0, Math.PI * 2); ctx.fill();
       ctx.shadowColor = glowC; ctx.shadowBlur = 24;
-      // Corps
-      ctx.fillStyle = "#0a0a1a"; ctx.strokeStyle = glowC; ctx.lineWidth = 2.5;
-      ctx.beginPath(); ctx.moveTo(0, -size); ctx.lineTo(size * 0.9, size * 0.5); ctx.lineTo(0, size * 0.2); ctx.lineTo(-size * 0.9, size * 0.5); ctx.closePath(); ctx.fill(); ctx.stroke();
-      // Cockpit (pulse avec le rythme)
-      ctx.fillStyle = "#ffffff"; ctx.shadowBlur = 12 + 6 * Math.sin(t * 8);
-      ctx.beginPath(); ctx.moveTo(0, -size * 0.35); ctx.lineTo(size * 0.18, 0); ctx.lineTo(0, size * 0.2); ctx.lineTo(-size * 0.18, 0); ctx.closePath(); ctx.fill();
-      // Ailes
-      ctx.strokeStyle = glowC; ctx.lineWidth = 2; ctx.shadowBlur = 14;
-      ctx.beginPath(); ctx.moveTo(size * 0.5, 0); ctx.lineTo(size * 1.15, size * 0.55); ctx.lineTo(size * 0.9, size * 0.5); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(-size * 0.5, 0); ctx.lineTo(-size * 1.15, size * 0.55); ctx.lineTo(-size * 0.9, size * 0.5); ctx.stroke();
+
+      // --- Corps principal avec dégradé 3D ---
+      const bodyG = ctx.createLinearGradient(-w * 0.45, 0, w * 0.45, 0);
+      bodyG.addColorStop(0, "#060612"); bodyG.addColorStop(0.3, "#12122a");
+      bodyG.addColorStop(0.5, "#181840"); bodyG.addColorStop(0.7, "#12122a");
+      bodyG.addColorStop(1, "#060612");
+      ctx.fillStyle = bodyG; ctx.strokeStyle = glowC; ctx.lineWidth = 2.5;
+      ctx.shadowBlur = 24;
+      ctx.beginPath();
+      ctx.moveTo(0, -h); ctx.lineTo(w * 0.9, h * 0.5); ctx.lineTo(0, h * 0.2); ctx.lineTo(-w * 0.9, h * 0.5);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // --- Arêtes du fuselage (lignes de profondeur 3D) ---
+      ctx.strokeStyle = hexA(glowC, 0.15); ctx.lineWidth = 0.8; ctx.shadowBlur = 0;
+      ctx.beginPath(); ctx.moveTo(0, -h * 0.9); ctx.lineTo(0, h * 0.15); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(-w * 0.2, -h * 0.5); ctx.lineTo(-w * 0.45, h * 0.35); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(w * 0.2, -h * 0.5); ctx.lineTo(w * 0.45, h * 0.35); ctx.stroke();
+
+      // --- Prise d'air latérale ---
+      ctx.fillStyle = hexA(glowC, 0.06); ctx.strokeStyle = hexA(glowC, 0.2); ctx.lineWidth = 0.6;
+      ctx.beginPath(); ctx.moveTo(-w * 0.3, h * 0.1); ctx.lineTo(-w * 0.65, h * 0.45);
+      ctx.lineTo(-w * 0.5, h * 0.48); ctx.lineTo(-w * 0.2, h * 0.2); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(w * 0.3, h * 0.1); ctx.lineTo(w * 0.65, h * 0.45);
+      ctx.lineTo(w * 0.5, h * 0.48); ctx.lineTo(w * 0.2, h * 0.2); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+      // --- Cockpit vitré (dégradé verrière) ---
+      const cp = 0.65 + 0.08 * Math.sin(t * 4);
+      ctx.shadowBlur = 0;
+      const ckG = ctx.createLinearGradient(0, -h * cp, 0, h * 0.2);
+      ckG.addColorStop(0, hexA("#ffffff", 0.1));
+      ckG.addColorStop(0.25, hexA("#c0e8ff", 0.6));
+      ckG.addColorStop(0.6, hexA(glowC, 0.3));
+      ckG.addColorStop(1, hexA(glowC, 0.05));
+      ctx.fillStyle = ckG; ctx.strokeStyle = hexA("#ffffff", 0.4); ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(0, -h * cp); ctx.lineTo(w * 0.18, 0);
+      ctx.lineTo(0, h * 0.18); ctx.lineTo(-w * 0.18, 0);
+      ctx.closePath(); ctx.fill(); ctx.stroke();
+      // Reflet vitre (specular)
+      ctx.strokeStyle = hexA("#ffffff", 0.25); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(-w * 0.08, -h * cp * 0.5); ctx.quadraticCurveTo(w * 0.05, -h * cp * 0.7, w * 0.1, -h * cp * 0.5); ctx.stroke();
+
+      // --- Ailes avec épaisseur ---
+      ctx.shadowBlur = 14;
+      for (const side of [-1, 1]) {
+        const sx = side * w * 0.5, sy = 0;
+        const ex = side * w * 1.15, ey = h * 0.55;
+        const ix = side * w * 0.9, iy = h * 0.5;
+        // Surface alaire
+        const wg = ctx.createLinearGradient(sx, 0, ex, 0);
+        wg.addColorStop(0, hexA("#0a0a20", 0.9)); wg.addColorStop(1, hexA(glowC, 0.15));
+        ctx.fillStyle = wg; ctx.strokeStyle = glowC; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey); ctx.lineTo(ix, iy); ctx.closePath(); ctx.fill(); ctx.stroke();
+        // Bord d'attaque lumineux
+        ctx.strokeStyle = hexA(glowC, 0.35); ctx.lineWidth = 1; ctx.shadowBlur = 6;
+        ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(ex, ey * 0.85); ctx.stroke();
+      }
       ctx.restore();
     };
 
