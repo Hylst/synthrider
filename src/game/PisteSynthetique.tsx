@@ -490,10 +490,8 @@ export default function PisteSynthetique() {
       }
 
       const w = s.width, h = s.height;
-      const targetX = laneCenterX(s.playerLane, 0, w, h, s.curveOffset);
-      const ease = Math.min(1, dt * 22);
-      s.visualX += (targetX - s.visualX) * ease;
-      s.bank += ((targetX - s.visualX) * 0.035 - s.bank) * Math.min(1, dt * 14);
+      s.visualX = laneCenterX(s.playerLane, 0, w, h, s.curveOffset);
+      s.bank = 0;
 
       for (const ob of s.obstacles) ob.z -= dt * speed;
       for (const ob of s.obstacles) ob.spawnT = Math.min(1, ob.spawnT + dt * 4);
@@ -505,7 +503,7 @@ export default function PisteSynthetique() {
         if (ob.done) continue;
         if (ob.z <= hitZone) {
           ob.done = true;
-          const px = laneCenterX(ob.lane, 0, w, h, s.curveOffset);
+          const px = laneCenterX(ob.lane, Math.min(ob.z, hitZone), w, h, s.curveOffset);
           if (ob.lane === s.playerLane) {
             if (ob.type === "note") {
               s.combo += 1; s.maxCombo = Math.max(s.maxCombo, s.combo);
