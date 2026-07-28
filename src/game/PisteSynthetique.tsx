@@ -114,6 +114,7 @@ export default function PisteSynthetique() {
   const [finalScore, setFinalScore] = useState(0);
   const [finalCombo, setFinalCombo] = useState(0);
   const [finalMeters, setFinalMeters] = useState(0);
+  const [bestScore, setBestScore] = useState(() => parseInt(localStorage.getItem('synthrider_best') || '0', 10));
   const [hud, setHud] = useState({ score: 0, combo: 0, mult: 1, meters: 0, level: 1, shield: 0, boost: 0, slow: 0, sync: 0, surge: 0 });
 
   const stateRef = useRef({
@@ -471,8 +472,13 @@ export default function PisteSynthetique() {
       s.score += dt * (6 + difficulty * 10) * (s.boost > 0 ? 2 : 1) * (s.surge > 0 ? 3 : 1);
 
       if (s.distance * 120 >= FINISH_METERS) {
+        const vs = Math.floor(s.score + s.combo * 25 + s.shield * 250);
+        if (vs > parseInt(localStorage.getItem('synthrider_best') || '0', 10)) {
+          localStorage.setItem('synthrider_best', String(vs));
+          setBestScore(vs);
+        }
         s.state = "victory"; setGameState("victory");
-        setFinalScore(Math.floor(s.score + s.combo * 25 + s.shield * 250));
+        setFinalScore(vs);
         setFinalCombo(s.maxCombo); setFinalMeters(FINISH_METERS);
         synth.milestone(); return;
       }
@@ -529,9 +535,14 @@ export default function PisteSynthetique() {
                 s.shield -= 1; s.shieldFlash = 1; s.shake = 0.6;
                 burst(px, playerY, COLORS.shield, 30, 6); pushText(px, playerY - 30, "BOUCLIER !", COLORS.shield, 20); synth.shieldHit();
               } else {
+                const fs = Math.floor(s.score);
+                if (fs > parseInt(localStorage.getItem('synthrider_best') || '0', 10)) {
+                  localStorage.setItem('synthrider_best', String(fs));
+                  setBestScore(fs);
+                }
                 s.shake = 1; burst(px, playerY, COLORS.fuchsia, 46, 8); synth.crash();
                 s.state = "over"; setGameState("over");
-                setFinalScore(Math.floor(s.score)); setFinalCombo(s.maxCombo); setFinalMeters(Math.floor(meters));
+                setFinalScore(fs); setFinalCombo(s.maxCombo); setFinalMeters(Math.floor(meters));
               }
             }
           } else {
@@ -788,8 +799,9 @@ export default function PisteSynthetique() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-0.5">
             <PowerBar label={hud.sync >= 100 ? "SURCHARGE PRÊTE [ESPACE]" : "SYNCHRO"} value={hud.sync / 100} color={hud.sync >= 100 ? COLORS.yellow : COLORS.cyan} />
+            {hud.sync < 100 && hud.sync > 0 && <span className="text-[8px] tracking-wider text-white/30 -mt-0.5">gemmes &amp; esquives remplissent la jauge</span>}
             {hud.surge > 0 && <PowerBar label="SURCHARGE" value={hud.surge / SURGE_DUR} color={COLORS.yellow} />}
             {hud.boost > 0 && <PowerBar label="TURBO" value={hud.boost / BOOST_DUR} color={COLORS.boost} />}
             {hud.slow > 0 && <PowerBar label="RALENTI" value={hud.slow / SLOW_DUR} color={COLORS.slow} />}
@@ -837,6 +849,11 @@ export default function PisteSynthetique() {
               <br />
               <b>5 voies</b> sur une piste courbe à traverser jusqu'à <b className="text-yellow-300">{FINISH_METERS} m</b>.
             </p>
+            {bestScore > 0 && (
+              <div className="mb-4 text-[11px] sm:text-xs tracking-wider text-yellow-300/70">
+                🏆 RECORD : <span className="font-bold text-yellow-200">{bestScore.toString().padStart(6, '0')}</span>
+              </div>
+            )}
             <div className="flex flex-col gap-1.5 items-center mb-6 text-[11px] sm:text-xs text-white/70">
               <div>⌨️ Flèches <span className="text-cyan-300">◀ ▶</span> · <span className="text-fuchsia-300">H</span> = règles · <span className="text-fuchsia-300">P</span> = pause · <span className="text-fuchsia-300">M</span> = son</div>
               <div>📱 Glisse <span className="text-cyan-300">(swipe ◀ ▶)</span> ou boutons en bas · <span className="text-fuchsia-300">Espace</span> = Surcharge</div>
@@ -885,11 +902,18 @@ export default function PisteSynthetique() {
           <HeroImage src={uiImages.crash?.src} />
           <div className="relative z-10">
             <h2 className="text-5xl sm:text-7xl font-black mb-6 tracking-widest" style={{ color: COLORS.fuchsia, textShadow: "0 0 30px #ff2bd6, 0 0 60px #ff2bd6" }}>CRASH</h2>
-            <div className="mb-7 grid grid-cols-3 gap-4 sm:gap-8 text-center">
+            <div className="mb-3 grid grid-cols-3 gap-4 sm:gap-8 text-center">
               <Stat label="SCORE" value={finalScore.toString()} color={COLORS.cyan} />
               <Stat label="COMBO MAX" value={`×${finalCombo}`} color={COLORS.fuchsia} />
               <Stat label="DISTANCE" value={`${finalMeters}m`} color={COLORS.yellow} />
             </div>
+            {bestScore > 0 && (
+              <div className="mb-5 text-[11px] sm:text-xs tracking-wider text-center">
+                <span className="text-yellow-300/60">🏆 Record : </span>
+                <span className="font-bold text-yellow-200">{bestScore.toString().padStart(6, '0')}</span>
+                {finalScore >= bestScore && <span className="ml-2 text-emerald-400">NOUVEAU RECORD !</span>}
+              </div>
+            )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-fuchsia-300 text-fuchsia-100 bg-fuchsia-500/10 hover:bg-fuchsia-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,43,214,0.5)" }}>↻ REJOUER</button>
             <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst — Geoff · avec l'aide d'une IA</div>
           </div>
@@ -902,11 +926,20 @@ export default function PisteSynthetique() {
           <HeroImage src={uiImages.hero?.src} />
           <div className="relative z-10">
             <h2 className="text-4xl sm:text-6xl font-black mb-6 tracking-widest text-yellow-200" style={{ textShadow: "0 0 30px #ffe43a, 0 0 60px #ff2bd6" }}>PARCOURS TERMINÉ</h2>
-            <div className="mb-7 grid grid-cols-3 gap-4 sm:gap-8 text-center">
+            <div className="mb-3 grid grid-cols-3 gap-4 sm:gap-8 text-center">
               <Stat label="SCORE" value={finalScore.toString()} color={COLORS.cyan} />
               <Stat label="COMBO MAX" value={`×${finalCombo}`} color={COLORS.fuchsia} />
               <Stat label="DISTANCE" value={`${finalMeters}m`} color={COLORS.yellow} />
             </div>
+            {bestScore > 0 && (
+              <div className="mb-5 text-[11px] sm:text-xs tracking-wider text-center">
+                <span className="text-yellow-300/60">🏆 Record : </span>
+                <span className="font-bold text-yellow-200">{bestScore.toString().padStart(6, '0')}</span>
+              </div>
+            )}
+            {(!bestScore || finalScore >= bestScore) && (
+              <div className="mb-5 text-[13px] font-bold text-yellow-300 animate-pulse">NOUVEAU RECORD !</div>
+            )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-yellow-300 text-yellow-100 bg-yellow-500/10 hover:bg-yellow-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,228,58,0.5)" }}>↻ RELANCER</button>
             <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst — Geoff · avec l'aide d'une IA</div>
           </div>
