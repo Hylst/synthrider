@@ -1,5 +1,13 @@
 # Changelog — SynthRider
 
+## [1.2.0] — 2026-07-28
+### Ajouté
+- Vaisseau rendu 3D amélioré (détails visuels)
+- Synchro voie instantané (snap voie)
+- Collision/rendu synchro X
+- Hint Synchro retiré (nettoyage UI)
+- Meilleure gestion des chevauchements de notes
+
 ## [1.1.0] — 2025-06-14
 ### Corrige
 - Collision detectée trop tard (hitZone 0.085 → 0.16)

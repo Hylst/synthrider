@@ -17,11 +17,11 @@
 - [x] Copier dist/ → synthrider/ dans le monorepo
 - [x] Commit et push
 
-## Ameliorations futures
-- [ ] Ajouter un mode "endless" (piste infinie)
-- [ ] Ajouter un systeme de sauvegarde (localStorage)
-- [ ] Ajouter plus de types de powerups
-- [ ] Ajouter des niveaux de difficulte croissante
-- [ ] Ajouter un almanach des obstacles
-- [ ] Optimiser les performances mobiles
-- [ ] Ajouter des effets sonores supplementaires
+## Améliorations futures
+- [ ] Mode "endless" (piste infinie)
+- [ ] Système de high score (localStorage)
+- [ ] Plus de types de powerups
+- [ ] Niveaux de difficulté croissante
+- [ ] Almanach des obstacles
+- [ ] Optimisations mobiles
+- [ ] Effets sonores supplémentaires
