@@ -110,6 +110,7 @@ export default function PisteSynthetique() {
   const [gameState, setGameState] = useState<GameState>("ready");
   const [muted, setMuted] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [onboardStep, setOnboardStep] = useState(0);
   const [finalScore, setFinalScore] = useState(0);
   const [finalCombo, setFinalCombo] = useState(0);
@@ -907,7 +908,8 @@ export default function PisteSynthetique() {
             </div>
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-cyan-300 text-cyan-100 bg-cyan-500/10 hover:bg-cyan-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(34,242,255,0.5), inset 0 0 20px rgba(34,242,255,0.15)" }}>▶ DÉMARRER</button>
             <button onClick={() => setHelpOpen(true)} className="mt-3 px-6 py-2 text-xs sm:text-sm font-bold tracking-widest border border-white/30 text-white/80 bg-white/5 hover:bg-white/15 transition-all rounded-sm">RÈGLES ET CONTRÔLES</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst — Geoff · avec l'aide d'une IA</div>
+            <button onClick={() => setAboutOpen(true)} className="mt-2 px-6 py-2 text-xs sm:text-sm font-bold tracking-widest border border-white/10 text-white/50 bg-transparent hover:bg-white/10 hover:text-white/80 transition-all rounded-sm">ℹ️ COMMENT CE JEU A ÉTÉ FAIT</button>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
@@ -995,6 +997,7 @@ export default function PisteSynthetique() {
 
       {/* Modal infos */}
       {helpOpen && <InfoModal onClose={() => setHelpOpen(false)} />}
+      {aboutOpen && <AboutModal onClose={() => setAboutOpen(false)} />}
 
       {/* Onboarding */}
       {gameState === "playing" && onboardStep < 4 && (
@@ -1043,6 +1046,24 @@ function InfoModal({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div className="mt-4 border border-yellow-300/25 bg-yellow-300/5 p-4 text-sm text-yellow-100/85">Astuce : débute lentement, accélère progressivement. Garde la Surcharge pour les passages difficiles.</div>
+      </div>
+    </div>
+  );
+}
+function AboutModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
+      <div className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto border border-cyan-300/50 bg-[#080016]/95 p-5 sm:p-7 text-left font-mono text-white shadow-[0_0_40px_rgba(34,242,255,0.25)]" onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute right-3 top-3 h-9 w-9 border border-white/20 text-white/80 hover:bg-white/10 text-lg">×</button>
+        <h3 className="mb-4 pr-10 text-2xl sm:text-3xl font-black tracking-widest text-cyan-200" style={{ textShadow: "0 0 16px #22f2ff" }}>COMMENT CE JEU A ÉTÉ FAIT</h3>
+        <div className="space-y-3 text-sm text-white/75 leading-relaxed">
+          <p><b className="text-cyan-300">Stack :</b> React 19, TypeScript 5.9, Tailwind CSS 4, Vite 7, compilé en un seul fichier HTML, aucune dépendance chargée depuis l'extérieur.</p>
+          <p><b className="text-cyan-300">Graphismes :</b> tout est dessiné en Canvas 2D à chaque image, avec une projection pseudo-3D (la piste et les voies sont projetées en profondeur puis courbées), aucun sprite ni image externe.</p>
+          <p><b className="text-cyan-300">Musique &amp; sons :</b> synthétisés en direct avec l'API Web Audio, calés sur le tempo du jeu (120 BPM), aucun fichier audio chargé.</p>
+          <p><b className="text-cyan-300">Interactions :</b> flèches ou A/D pour changer de voie, glisser (swipe) ou boutons tactiles sur mobile, Espace pour activer la Surcharge une fois la Synchro à 100%.</p>
+          <p><b className="text-cyan-300">Architecture :</b> une seule boucle de jeu Canvas met à jour la physique (position, courbe, défilement) et redessine chaque image, l'état vit dans des références pour rester rapide sans re-rendu React.</p>
+          <p><b className="text-cyan-300">Algorithmes notables :</b> la courbe de la piste et le décalage des voies sont calculés par une fonction de projection en profondeur, pas une vraie 3D. Le générateur d'obstacles et de bonus utilise un générateur pseudo-aléatoire à graine fixe (mulberry32) réinitialisée à chaque départ : la disposition des barrières, gemmes et bonus est donc exactement la même à chaque partie, un vrai parcours à mémoriser plutôt qu'un tirage différent à chaque fois.</p>
+        </div>
       </div>
     </div>
   );
