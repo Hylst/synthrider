@@ -59,3 +59,7 @@ Le build produit un unique fichier `dist/index.html` (via `vite-plugin-singlefil
 ## Crédits
 
 Créé par **Hylst** (Geoffroy Streit) avec l'aide d'une IA.
+
+## Licence
+
+Code : AGPL-3.0-or-later. Voir `LICENSE`.
