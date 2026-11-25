@@ -36,9 +36,9 @@ const COLORS = {
 
 const BASE_URL = (import.meta as unknown as { env?: { BASE_URL?: string } }).env?.BASE_URL ?? "/";
 const UI_IMAGES: Record<string, string> = {
-  hero: `${BASE_URL}images/nebula.jpg`,
-  pause: `${BASE_URL}images/mountains.png`,
-  crash: `${BASE_URL}images/barrier.png`,
+  hero: `${BASE_URL}images/nebula.webp`,
+  pause: `${BASE_URL}images/mountains.webp`,
+  crash: `${BASE_URL}images/barrier.webp`,
 };
 
 function mulberry32(a: number) { return function () { a |= 0; a = (a + 0x6d2b79f5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
