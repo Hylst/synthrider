@@ -2,8 +2,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { synth } from "./audio";
 
 /* =========================================================================
-   SYNTH RIDER — course rythmique pseudo-3D synthwave 100 % vectorielle
-   Créateur : Hylst — Geoff, avec l'aide d'une IA
+   CAVALIER SYNTHWAVE : course rythmique pseudo-3D synthwave 100 % vectorielle
+   Créateur : Hylst, Geoff, avec l'aide d'une IA
    ========================================================================= */
 
 type GameState = "ready" | "playing" | "paused" | "over" | "victory";
@@ -861,7 +861,7 @@ export default function PisteSynthetique() {
           <div className="flex items-center justify-between gap-3 px-3 sm:px-6 pb-4 sm:pb-6 pointer-events-auto">
             <HoldBtn label="◀" onDown={() => startRepeat(-1)} onUp={stopRepeat} tone="cyan" />
             <div className="text-[10px] tracking-widest text-white/40 text-center leading-tight">
-              <div className="text-white/60">⟸ swipe ⟹</div>
+              <div className="text-white/60">⟸ balayage ⟹</div>
               <div>pour bouger</div>
             </div>
             <button
@@ -904,7 +904,7 @@ export default function PisteSynthetique() {
             )}
             <div className="flex flex-col gap-1.5 items-center mb-6 text-[11px] sm:text-xs text-white/70">
               <div>⌨️ Flèches <span className="text-cyan-300">◀ ▶</span> · <span className="text-fuchsia-300">H</span> = règles · <span className="text-fuchsia-300">P</span> = pause · <span className="text-fuchsia-300">M</span> = son</div>
-              <div>📱 Glisse <span className="text-cyan-300">(swipe ◀ ▶)</span> ou boutons en bas · <span className="text-fuchsia-300">Espace</span> = Surcharge</div>
+              <div>📱 Glisse <span className="text-cyan-300">(balayage ◀ ▶)</span> ou boutons en bas · <span className="text-fuchsia-300">Espace</span> = Surcharge</div>
             </div>
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-cyan-300 text-cyan-100 bg-cyan-500/10 hover:bg-cyan-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(34,242,255,0.5), inset 0 0 20px rgba(34,242,255,0.15)" }}>▶ DÉMARRER</button>
             <button onClick={() => setHelpOpen(true)} className="mt-3 px-6 py-2 text-xs sm:text-sm font-bold tracking-widest border border-white/30 text-white/80 bg-white/5 hover:bg-white/15 transition-all rounded-sm">RÈGLES ET CONTRÔLES</button>
@@ -938,7 +938,7 @@ export default function PisteSynthetique() {
                 <li>⌨️ Flèches ◀ ▶ ou A/D : changer de voie</li>
                 <li>Espace : activer la Surcharge</li>
                 <li>P/Échap : pause · M : son · H : règles</li>
-                <li>📱 Glisse (swipe ◀ ▶) ou boutons ◀ ▶ en bas</li>
+                <li>📱 Glisse (balayage ◀ ▶) ou boutons ◀ ▶ en bas</li>
               </ul>
             </div>
           </div>
@@ -964,7 +964,7 @@ export default function PisteSynthetique() {
               </div>
             )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-fuchsia-300 text-fuchsia-100 bg-fuchsia-500/10 hover:bg-fuchsia-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,43,214,0.5)" }}>↻ REJOUER</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst — Geoff · avec l'aide d'une IA</div>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
@@ -990,7 +990,7 @@ export default function PisteSynthetique() {
               <div className="mb-5 text-[13px] font-bold text-yellow-300 animate-pulse">NOUVEAU RECORD !</div>
             )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-yellow-300 text-yellow-100 bg-yellow-500/10 hover:bg-yellow-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,228,58,0.5)" }}>↻ RELANCER</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst — Geoff · avec l'aide d'une IA</div>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
@@ -1031,7 +1031,7 @@ function InfoModal({ onClose }: { onClose: () => void }) {
           <div className="border border-cyan-400/25 bg-cyan-400/5 p-4">
             <h4 className="mb-2 font-bold tracking-widest text-cyan-200">CONTRÔLES</h4>
             <p className="text-sm text-white/75">Flèches ◀ ▶ ou A/D : changer de voie.</p>
-            <p className="mt-2 text-sm text-white/75">Mobile : glisse (swipe ◀ ▶) ou boutons ◀ ▶ en bas.</p>
+            <p className="mt-2 text-sm text-white/75">Mobile : glisse (balayage ◀ ▶) ou boutons ◀ ▶ en bas.</p>
             <p className="mt-2 text-sm text-white/75">Espace : Surcharge (quand Synchro = 100%).</p>
             <p className="mt-2 text-sm text-white/75">P ou Échap : pause. H : règles. M : son.</p>
           </div>
@@ -1060,7 +1060,7 @@ function AboutModal({ onClose }: { onClose: () => void }) {
           <p><b className="text-cyan-300">Stack :</b> React 19, TypeScript 5.9, Tailwind CSS 4, Vite 7, compilé en un seul fichier HTML, aucune dépendance chargée depuis l'extérieur.</p>
           <p><b className="text-cyan-300">Graphismes :</b> tout est dessiné en Canvas 2D à chaque image, avec une projection pseudo-3D (la piste et les voies sont projetées en profondeur puis courbées), aucun sprite ni image externe.</p>
           <p><b className="text-cyan-300">Musique &amp; sons :</b> synthétisés en direct avec l'API Web Audio, calés sur le tempo du jeu (120 BPM), aucun fichier audio chargé.</p>
-          <p><b className="text-cyan-300">Interactions :</b> flèches ou A/D pour changer de voie, glisser (swipe) ou boutons tactiles sur mobile, Espace pour activer la Surcharge une fois la Synchro à 100%.</p>
+          <p><b className="text-cyan-300">Interactions :</b> flèches ou A/D pour changer de voie, glisser (balayage) ou boutons tactiles sur mobile, Espace pour activer la Surcharge une fois la Synchro à 100%.</p>
           <p><b className="text-cyan-300">Architecture :</b> une seule boucle de jeu Canvas met à jour la physique (position, courbe, défilement) et redessine chaque image, l'état vit dans des références pour rester rapide sans re-rendu React.</p>
           <p><b className="text-cyan-300">Algorithmes notables :</b> la courbe de la piste et le décalage des voies sont calculés par une fonction de projection en profondeur, pas une vraie 3D. Le générateur d'obstacles et de bonus utilise un générateur pseudo-aléatoire à graine fixe (mulberry32) réinitialisée à chaque départ : la disposition des barrières, gemmes et bonus est donc exactement la même à chaque partie, un vrai parcours à mémoriser plutôt qu'un tirage différent à chaque fois.</p>
         </div>

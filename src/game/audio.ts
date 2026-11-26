@@ -1,5 +1,5 @@
-// Moteur audio synthwave — tout est synthétisé en temps réel (Web Audio API).
-// Créateur : Hylst — Geoff, avec l'aide d'une IA
+// Moteur audio synthwave : tout est synthétisé en temps réel (Web Audio API).
+// Créateur : Hylst, Geoff, avec l'aide d'une IA
 
 function midiToFreq(m: number) {
   return 440 * Math.pow(2, (m - 69) / 12);
