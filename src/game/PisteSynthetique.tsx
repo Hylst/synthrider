@@ -891,7 +891,7 @@ export default function PisteSynthetique() {
           <HeroImage src={uiImages.hero?.src} />
           <div className="relative z-10">
             <div className="mb-2 text-[10px] sm:text-sm tracking-[0.5em] text-cyan-300/80">BIENVENUE SUR</div>
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-wider mb-4 leading-none" style={{ background: "linear-gradient(180deg, #fff 0%, #22f2ff 45%, #ff2bd6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 22px #ff2bd6)" }}>SYNTH<br />RIDER</h1>
+            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-wider mb-4 leading-none" style={{ background: "linear-gradient(180deg, #fff 0%, #22f2ff 45%, #ff2bd6 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", filter: "drop-shadow(0 0 22px #ff2bd6)" }}>CAVALIER<br />SYNTHWAVE</h1>
             <p className="max-w-md text-xs sm:text-sm text-white/80 mb-5 leading-relaxed text-center">
               Course rythmique rétro-futuriste à <b className="text-fuchsia-300">120 BPM</b>.
               <br />
