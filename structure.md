@@ -1,4 +1,4 @@
-# Structure de SynthRider
+# Structure de Cavalier Synthwave
 
 ```
 synth-rider-game-development/

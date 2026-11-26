@@ -1,4 +1,4 @@
-# Fonctionnalites de SynthRider
+# Fonctionnalites de Cavalier Synthwave
 
 ## Gameplay
 - Course rythmique pseudo-3D synthwave

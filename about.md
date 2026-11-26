@@ -1,8 +1,8 @@
-# À propos de SynthRider
+# À propos de Cavalier Synthwave
 
 ## Le jeu
 
-SynthRider est un jeu de course rythmique pseudo-3D inspiré de l'esthétique synthwave et de la demoscene. Le joueur pilote un vaisseau sur une piste perspective à 5 voies, au rythme de 120 BPM.
+Cavalier Synthwave est un jeu de course rythmique pseudo-3D inspiré de l'esthétique synthwave et de la demoscene. Le joueur pilote un vaisseau sur une piste perspective à 5 voies, au rythme de 120 BPM.
 
 ## L'univers visuel
 

@@ -1,4 +1,4 @@
-# SynthRider
+# Cavalier Synthwave
 
 **Course rythmique pseudo-3D synthwave — 100% navigateur, gratuit.**
 
@@ -6,7 +6,7 @@ Jouez sur : https://games.hylst.fr/synthrider/
 
 ## Description
 
-SynthRider est un jeu de course rythmique rétro-futuriste. Pilotez un vaisseau sur une piste synthwave pseudo-3D à 120 BPM, esquivez les barrières, collectez les gemmes et atteignez 2400 mètres.
+Cavalier Synthwave est un jeu de course rythmique rétro-futuriste. Pilotez un vaisseau sur une piste synthwave pseudo-3D à 120 BPM, esquivez les barrières, collectez les gemmes et atteignez 2400 mètres.
 
 ## Fonctionnalités
 
