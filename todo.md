@@ -25,3 +25,7 @@
 - [ ] Almanach des obstacles
 - [ ] Optimisations mobiles
 - [ ] Effets sonores supplémentaires
+
+## Audit du 27/11/2026
+
+- [ ] Cocher la ligne « Système de high score », le code utilise déjà localStorage.

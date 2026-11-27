@@ -3,7 +3,7 @@ import { synth } from "./audio";
 
 /* =========================================================================
    CAVALIER SYNTHWAVE : course rythmique pseudo-3D synthwave 100 % vectorielle
-   Créateur : Hylst, Geoff, avec l'aide d'une IA
+   Créateur : Hylst, Geoffroy, avec l'aide d'une IA
    ========================================================================= */
 
 type GameState = "ready" | "playing" | "paused" | "over" | "victory";
@@ -909,7 +909,7 @@ export default function PisteSynthetique() {
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-cyan-300 text-cyan-100 bg-cyan-500/10 hover:bg-cyan-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(34,242,255,0.5), inset 0 0 20px rgba(34,242,255,0.15)" }}>▶ DÉMARRER</button>
             <button onClick={() => setHelpOpen(true)} className="mt-3 px-6 py-2 text-xs sm:text-sm font-bold tracking-widest border border-white/30 text-white/80 bg-white/5 hover:bg-white/15 transition-all rounded-sm">RÈGLES ET CONTRÔLES</button>
             <button onClick={() => setAboutOpen(true)} className="mt-2 px-6 py-2 text-xs sm:text-sm font-bold tracking-widest border border-white/10 text-white/50 bg-transparent hover:bg-white/10 hover:text-white/80 transition-all rounded-sm">ℹ️ COMMENT CE JEU A ÉTÉ FAIT</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoffroy · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
@@ -964,7 +964,7 @@ export default function PisteSynthetique() {
               </div>
             )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-fuchsia-300 text-fuchsia-100 bg-fuchsia-500/10 hover:bg-fuchsia-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,43,214,0.5)" }}>↻ REJOUER</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoffroy · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
@@ -990,7 +990,7 @@ export default function PisteSynthetique() {
               <div className="mb-5 text-[13px] font-bold text-yellow-300 animate-pulse">NOUVEAU RECORD !</div>
             )}
             <button onClick={startGame} className="px-10 py-3.5 text-base sm:text-xl font-bold tracking-widest border-2 border-yellow-300 text-yellow-100 bg-yellow-500/10 hover:bg-yellow-400/30 transition-all rounded-sm" style={{ boxShadow: "0 0 30px rgba(255,228,58,0.5)" }}>↻ RELANCER</button>
-            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoff · avec l'aide d'une IA</div>
+            <div className="mt-8 text-[10px] tracking-widest text-white/40">par Hylst, Geoffroy · avec l'aide d'une IA</div>
           </div>
         </ScreenPanel>
       )}
